@@ -1,0 +1,30 @@
+<job id="reporting" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <step id="informationProject" next="importationIssue">
+        <chunk item-count="3">
+            <reader ref="projectReader"/>
+            <writer ref="projectWriter"/>
+        </chunk>
+    </step>
+    <step id="importationIssue" next="consolidationIssueByWeek">
+        <chunk item-count="3">
+            <reader ref="issueReader"/>
+            <processor ref="issueProcessor"/>
+            <writer ref="issueWriter"/>
+        </chunk>
+    </step>
+    <step id="consolidationIssueByWeek" next="consolidationIssueByType">
+        <chunk item-count="3">
+            <reader ref="csvIssueReader"/>
+            <processor ref="consolidatedIssueByWeekProcessor"/>
+            <writer ref="consolidatedIssueByWeekWriter"/>
+        </chunk>
+    </step>
+    <step id="consolidationIssueByType">
+        <chunk item-count="3">
+            <reader ref="csvIssueReader"/>
+            <processor ref="consolidatedIssueByTypeProcessor"/>
+            <writer ref="consolidatedIssueByTypeWriter"/>
+        </chunk>
+    </step>
+</job>
+
